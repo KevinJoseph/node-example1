@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 //configuring the database
 const dbConfig = require('./config/database.config');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 mongoose.Promise = global.Promise;
 
@@ -14,6 +15,8 @@ app.use(bodyParser.urlencoded({ extended:true }))
 
 //parse requests of content-type application/json
 app.use(bodyParser.json())
+
+app.use(cors());
 
 //define a simple route
 app.get('/', (req,res) => {
@@ -32,6 +35,7 @@ mongoose.connect(dbConfig.url, {
 
 // Require Notes routes
 require('./app/routes/note.routes.js')(app);
+
 
 //listen for requests
 app.listen(3000, () =>{
